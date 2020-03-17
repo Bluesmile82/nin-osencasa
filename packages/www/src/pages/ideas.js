@@ -18,10 +18,10 @@ const GET_IDEAS = gql`
       id
       title
       author
-      key
-      lyrics
-      style
-      youtubeId
+      activity
+      description
+      participants
+      duration
     }
   }
 `;
@@ -45,7 +45,7 @@ export default () => {
               {data.ideas && data.ideas
                 .filter(idea => (search ? idea.title.startsWith(search) : true))
                 .map(idea => (
-                  <li key={idea.id}>
+                  <li activity={idea.id}>
                     <NavLink as={Link} to={`/ideas/${idea.id}`} p={2}>
                       {idea.title}
                     </NavLink>
@@ -74,8 +74,8 @@ export default () => {
                 <h1>{idea.title}</h1>
                 <div>{idea.author}</div>
               </span>
-              <div>{idea.style}</div>
-              <div>{idea.key}</div>
+              <div>{idea.participants}</div>
+              <div>{idea.activity}</div>
             </Box>
             <Box p={4}>
               <Flex
@@ -84,20 +84,10 @@ export default () => {
                   alignItems: 'center'
                 }}
               >
-                <Box sx={{ whiteSpace: 'pre-line' }}>{idea.lyrics}</Box>
+                <Box sx={{ whiteSpace: 'pre-line' }}>{idea.description}</Box>
               </Flex>
             </Box>
-            {idea.youtubeId && (
-              <iframe
-                title={idea.title}
-                width="560"
-                height="315"
-                src={`https://www.youtube.com/embed/${idea.youtubeId}`}
-                frameborder="0"
-                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen
-              ></iframe>
-            )}
+            {idea.duration}
             <NavLink as={Link} to={`/ideas/edit/${idea.id}`} p={2}>
               Edit
             </NavLink>
@@ -126,23 +116,13 @@ export default () => {
                 }}
               >
                 <div>{idea.author}</div>
-                <div>{idea.key}</div>
-                <div>{idea.style}</div>
-                <div>{idea.lyrics}</div>
+                <div>{idea.activity}</div>
+                <div>{idea.participants}</div>
+                <div>{idea.description}</div>
               </Flex>
             </Box>
-            {idea.youtubeId && (
-              <iframe
-                title={idea.title}
-                width="560"
-                height="315"
-                src={`https://www.youtube.com/embed/${idea.youtubeId}`}
-                frameborder="0"
-                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen
-              ></iframe>
-            )}
-            <Form currentItem={idea} refetch={refetch} playlists={playlists} />
+            {idea.duration}
+            <Form currentItem={idea} refetch={refetch} />
           </Flex>
         )}
       </Flex>

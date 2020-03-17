@@ -130,8 +130,6 @@ const Form = ({ currentItem, refetch }) => {
 
   const { id } = currentItem || {};
 
-  const nameRef = useRef(null);
-
   const titleRef = useRef(null);
   const authorRef = useRef(null);
   const participantsRef = useRef(null);
@@ -190,7 +188,6 @@ const Form = ({ currentItem, refetch }) => {
         <FormLabel
           label="participants"
           ref={participantsRef}
-          selectOptions={participantss}
           defaultValue={currentItem ? currentItem.participants : undefined}
         />
         <FormLabel
@@ -205,12 +202,12 @@ const Form = ({ currentItem, refetch }) => {
           defaultValue={currentItem ? currentItem.description : undefined}
         />
         <FormLabel
-          label="youtube id"
+          label="duration"
           ref={durationRef}
           defaultValue={currentItem ? currentItem.duration : undefined}
         />
       </>
-    <Button sx={{ marginLeft: 1 }}>Submit</Button>
+      <Button sx={{ marginLeft: 1 }}>Submit</Button>
     </Flex>
   );
 }

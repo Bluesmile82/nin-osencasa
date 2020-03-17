@@ -128,7 +128,7 @@ const FormLabel = React.forwardRef(
 
 const Form = ({ currentItem, refetch }) => {
 
-  const { id } = currentItem;
+  const { id } = currentItem || {};
 
   const nameRef = useRef(null);
 

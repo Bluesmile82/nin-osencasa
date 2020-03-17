@@ -20,7 +20,7 @@ const ADD_IDEA = gql`
     $participants: String!
     $activity: String!
     $description: String!
-    $duration: Number
+    $duration: Int
   ) {
     addIdea(
       title: $title
@@ -43,7 +43,7 @@ const UPDATE_IDEA = gql`
     $participants: String!
     $activity: String!
     $description: String!
-    $duration: Number
+    $duration: Int
   ) {
     updateIdea(
       id: $id

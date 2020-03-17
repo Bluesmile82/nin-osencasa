@@ -14,7 +14,7 @@ const typeDefs = gql`
     participants: String
     activity: String
     description: String
-    duration: Number
+    duration: Int
   }
   type Mutation {
     addIdea(
@@ -23,7 +23,7 @@ const typeDefs = gql`
       participants: String
       activity: String
       description: String
-      duration: Number
+      duration: Int
     ): Idea
     deleteIdea(id: ID!): Idea
     updateIdea(
@@ -33,7 +33,7 @@ const typeDefs = gql`
       participants: String
       activity: String
       description: String
-      duration: Number
+      duration: Int
     ): Idea
   }
 `;

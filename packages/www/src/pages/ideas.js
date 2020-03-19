@@ -11,6 +11,7 @@ import {
 import { gql, useQuery } from '@apollo/client';
 import Nav from '../components/Nav';
 import Form from '../components/Form';
+import '../../styles/ideas.scss';
 
 const GET_IDEAS = gql`
   query GetIdeas {
@@ -38,7 +39,7 @@ export default () => {
         {!loading && !error && (
           <>
             <Input
-              placeholder="Search for..."
+              placeholder="Busca..."
               onChange={term => setSearch(term.target.value)}
             />
             <ol>

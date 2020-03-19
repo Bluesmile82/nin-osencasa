@@ -3,6 +3,7 @@ import { Container, Flex, Input, Box } from 'theme-ui';
 import { gql, useQuery } from '@apollo/client';
 import Nav from '../components/Nav';
 import firstIdeas from '../../../static/firstIdeas.json'
+import '../../styles/index.scss';
 
 const GET_IDEAS = gql`
   query GetIdeas {
@@ -30,7 +31,7 @@ export default () => {
         {!loading && !error && (
           <>
             <Input
-              placeholder="Search for..."
+              placeholder="Busca ..."
               onChange={term => setSearch(term.target.value)}
             />
             {data.ideas

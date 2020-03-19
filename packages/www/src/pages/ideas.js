@@ -154,8 +154,8 @@ export default () => {
   const Ideas = () => {
     return (
       <Container>
-        <Flex sx={{ flexDirection: 'column', padding: 3, align: 'right' }}>
-          <Nav />
+        <Nav />
+        <Flex sx={{ flexDirection: 'column', ialign: 'right' }}>
           <Heading as="h1" sx={{ marginBottom: 3 }}>
             Ideas
           </Heading>

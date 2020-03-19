@@ -16,10 +16,10 @@ import {
 const ADD_IDEA = gql`
   mutation AddIdea(
     $title: String!
-    $author: String!
-    $participants: String!
-    $activity: String!
-    $description: String!
+    $author: String
+    $participants: Int
+    $activity: String
+    $description: String
     $duration: Int
   ) {
     addIdea(
@@ -38,11 +38,11 @@ const ADD_IDEA = gql`
 const UPDATE_IDEA = gql`
   mutation UpdateIdea(
     $id: ID!
-    $title: String!
-    $author: String!
-    $participants: String!
-    $activity: String!
-    $description: String!
+    $title: String
+    $author: String
+    $participants: Int
+    $activity: String
+    $description: String
     $duration: Int
   ) {
     updateIdea(
@@ -60,7 +60,7 @@ const UPDATE_IDEA = gql`
 `;
 
 const FormLabel = React.forwardRef(
-  ({ defaultValue, label, textarea, selectOptions, multi }, ref) => {
+  ({ defaultValue, label, type, textarea, selectOptions, multi }, ref) => {
     if (selectOptions) {
       if (multi) {
         return (
@@ -119,6 +119,7 @@ const FormLabel = React.forwardRef(
           sx={{ marginLeft: 3 }}
           name={label}
           defaultValue={defaultValue}
+          type={type}
         />
       </Label>
     );
@@ -142,27 +143,28 @@ const Form = ({ currentItem, refetch }) => {
 
   const onSubmit = async (e, id) => {
     e.preventDefault();
+    console.log(durationRef.current.value);
     if (id) {
       await updateIdea({
         variables: {
           id,
           title: titleRef.current.value,
-          participants: participantsRef.current.value,
+          participants: participantsRef.current.value || null,
           author: authorRef.current.value,
           activity: activityRef.current.value,
           description: descriptionRef.current.value,
-          duration: durationRef.current.value
+          duration: durationRef.current.value || null
         }
-      })
+      });
     } else {
       await addIdea({
         variables: {
           title: titleRef.current.value,
-          participants: participantsRef.current.value,
+          participants: participantsRef.current.value || null,
           author: authorRef.current.value,
           activity: activityRef.current.value,
           description: descriptionRef.current.value,
-          duration: durationRef.current.value,
+          duration: durationRef.current.value || null
         }
       });
     }
@@ -177,34 +179,36 @@ const Form = ({ currentItem, refetch }) => {
       <>
         <FormLabel
           defaultValue={currentItem ? currentItem.title : undefined}
-          label="title"
+          label="Titulo"
           ref={titleRef}
         />
         <FormLabel
-          label="author"
+          label="Autor"
           ref={authorRef}
           defaultValue={currentItem ? currentItem.author : undefined}
         />
         <FormLabel
-          label="participants"
+          label="Participantes"
           ref={participantsRef}
           defaultValue={currentItem ? currentItem.participants : undefined}
+          type="number"
         />
         <FormLabel
-          label="activity"
+          label="Tipo de actividad"
           ref={activityRef}
           defaultValue={currentItem ? currentItem.activity : undefined}
         />
         <FormLabel
-          label="description"
+          label="Description"
           ref={descriptionRef}
           textarea
           defaultValue={currentItem ? currentItem.description : undefined}
         />
         <FormLabel
-          label="duration"
+          label="Duration"
           ref={durationRef}
           defaultValue={currentItem ? currentItem.duration : undefined}
+          type="number"
         />
       </>
       <Button sx={{ marginLeft: 1 }}>Submit</Button>

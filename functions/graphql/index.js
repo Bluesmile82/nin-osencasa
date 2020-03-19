@@ -11,7 +11,7 @@ const typeDefs = gql`
     id: ID!
     title: String!
     author: String
-    participants: String
+    participants: Int
     activity: String
     description: String
     duration: Int
@@ -20,7 +20,7 @@ const typeDefs = gql`
     addIdea(
       title: String!
       author: String
-      participants: String
+      participants: Int
       activity: String
       description: String
       duration: Int

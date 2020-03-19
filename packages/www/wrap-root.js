@@ -14,7 +14,7 @@ const {
 } = require('@apollo/client');
 
 const httpLink = new HttpLink({
-  uri: 'https://idea-book.netlify.com/.netlify/functions/index',
+  uri: 'https://www.xn--niosencasa-u9a.com/.netlify/functions/index',
   fetch
 });
 

@@ -10,6 +10,7 @@ import {
 } from 'theme-ui';
 import { gql, useQuery } from '@apollo/client';
 import Nav from '../components/Nav';
+import Seo from '../components/Seo';
 import Form from '../components/Form';
 import '../../styles/ideas.scss';
 
@@ -155,12 +156,16 @@ export default () => {
   const Ideas = () => {
     return (
       <Container>
+        <Seo
+          title="Crea tu idea"
+          description="Añade a la lista de ideas y actividades para hacer con los niños en casa"
+        />
         <Nav />
         <Flex sx={{ flexDirection: 'column', ialign: 'right' }}>
           <Heading as="h1" sx={{ marginBottom: 3 }}>
             Ideas
           </Heading>
-          <Form refetch={refetch}/>
+          <Form refetch={refetch} />
           <ViewIdeas />
         </Flex>
       </Container>

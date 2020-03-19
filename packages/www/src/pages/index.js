@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Container, Flex, Input, Box } from 'theme-ui';
 import { gql, useQuery } from '@apollo/client';
 import Nav from '../components/Nav';
+import Seo from '../components/Seo';
 import firstIdeas from '../../../static/firstIdeas.json'
 import '../../styles/index.scss';
 
@@ -52,22 +53,23 @@ export default () => {
   };
   return (
     <Container>
+      <Seo
+        title="Inicio"
+        description="Ideas y actividades para hacer con los niños en casa"
+      />
       <Nav />
       <h1>Ideas y actividades para hacer con los niños en casa</h1>
       <div>
         Estas actividades como juegos, manualidades, cocina te ayudarán para
         pasar un gran tiempo con los niños o a que se entretengan
       </div>
+      <ViewIdeas />
       {firstIdeas.map(i => (
-        <Box
-          p={3}
-          key={i.title}
-        >
+        <Box p={3} key={i.title}>
           <h3>{i.title}</h3>
           <div>{i.description}</div>
         </Box>
       ))}
-      <ViewIdeas />
     </Container>
   );
 }

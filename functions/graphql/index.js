@@ -10,8 +10,7 @@ const typeDefs = gql`
   type Idea {
     id: ID!
     title: String!
-    author: String
-    participants: Int
+    participants: String
     activity: String
     description: String
     duration: Int
@@ -19,8 +18,7 @@ const typeDefs = gql`
   type Mutation {
     addIdea(
       title: String!
-      author: String
-      participants: Int
+      participants: String
       activity: String
       description: String
       duration: Int
@@ -29,7 +27,6 @@ const typeDefs = gql`
     updateIdea(
       id: ID!
       title: String
-      author: String
       participants: String
       activity: String
       description: String
@@ -47,7 +44,6 @@ const resolvers = {
         const [
           ref,
           title,
-          author,
           participants,
           activity,
           description,
@@ -56,7 +52,6 @@ const resolvers = {
         return {
           id: ref.id,
           title,
-          author,
           participants,
           activity,
           description,
@@ -68,13 +63,12 @@ const resolvers = {
   Mutation: {
     addIdea: async (
       _,
-      { title, author, participants, activity, description, duration }
+      { title, participants, activity, description, duration }
     ) => {
       const results = await client.query(
         q.Create(q.Collection('ideas'), {
           data: {
             title,
-            author,
             participants,
             activity,
             description,
@@ -97,13 +91,12 @@ const resolvers = {
     },
     updateIdea: async (
       _,
-      { id, title, author, participants, activity, description, duration }
+      { id, title, participants, activity, description, duration }
     ) => {
       const results = await client.query(
         q.Update(q.Ref(q.Collection('ideas'), id), {
           data: {
             title,
-            author,
             participants,
             activity,
             description,

@@ -3,15 +3,15 @@ import { Container, Flex, Input, Box } from 'theme-ui';
 import { gql, useQuery } from '@apollo/client';
 import Nav from '../components/Nav';
 import Seo from '../components/Seo';
-import firstIdeas from '../../../static/firstIdeas.json'
+import firstIdeas from '../../static/firstIdeas.json'
 import '../../styles/index.scss';
+import StarRatingComponent from 'react-star-rating-component';
 
 const GET_IDEAS = gql`
   query GetIdeas {
     ideas {
       id
       title
-      author
       activity
       description
       participants
@@ -36,16 +36,24 @@ export default () => {
               onChange={term => setSearch(term.target.value)}
             />
             {data.ideas
-              .filter(idea =>
-                search ? idea.title.startsWith(search) : true
-              )
+              .filter(idea => (search ? idea.title.startsWith(search) : true))
               .map(idea => (
                 <Box p={3} key={idea.title}>
                   <h3>{idea.title}</h3>
                   <div>{idea.description}</div>
+                  {idea.duration && (
+                    <div>
+                      Duración:
+                      <StarRatingComponent
+                        className="stars"
+                        name={'index-duration'}
+                        value={idea.duration}
+                        editing={false}
+                      />
+                    </div>
+                  )}
                 </Box>
-              ))
-            }
+              ))}
           </>
         )}
       </Flex>

@@ -1,6 +1,8 @@
 const React = require('react');
 const { ThemeProvider } = require('theme-ui');
 const { future } = require('@theme-ui/presets');
+const { GATSBY_API } = process.env;
+
 const updatedTheme = {
   ...future,
   sizes: { container: 1024 }
@@ -12,9 +14,9 @@ const {
   HttpLink,
   InMemoryCache
 } = require('@apollo/client');
-
+console.log('s',process.env,  GATSBY_API)
 const httpLink = new HttpLink({
-  uri: 'https://www.xn--niosencasa-u9a.com/.netlify/functions/index',
+  uri: `${GATSBY_API || 'https://www.xn--niosencasa-u9a.com/.netlify/functions/index'}`,
   fetch
 });
 

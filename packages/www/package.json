@@ -12,7 +12,6 @@
     "@apollo/client": "^3.0.0-beta.38",
     "@theme-ui/presets": "^0.3.0",
     "apollo-link-context": "^1.0.19",
-    "dotenv": "^8.2.0",
     "faunadb": "^2.13.0",
     "gatsby": "^2.19.18",
     "gatsby-plugin-create-client-paths": "^2.1.22",
@@ -33,6 +32,7 @@
     "react-dom-factories": "^1.0.0",
     "react-helmet": "^5.2.1",
     "react-selectize": "^3.0.1",
+    "react-star-rating-component": "^1.4.1",
     "react-transition-group": "^1.1.2",
     "theme-ui": "^0.3.1"
   }

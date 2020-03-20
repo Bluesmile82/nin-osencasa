@@ -13,13 +13,13 @@ import Nav from '../components/Nav';
 import Seo from '../components/Seo';
 import Form from '../components/Form';
 import '../../styles/ideas.scss';
+import StarRatingComponent from 'react-star-rating-component';
 
 const GET_IDEAS = gql`
   query GetIdeas {
     ideas {
       id
       title
-      author
       activity
       description
       participants
@@ -47,7 +47,7 @@ export default () => {
               {data.ideas && data.ideas
                 .filter(idea => (search ? idea.title.startsWith(search) : true))
                 .map(idea => (
-                  <li activity={idea.id}>
+                  <li key={idea.id}>
                     <NavLink as={Link} to={`/ideas/${idea.id}`} p={2}>
                       {idea.title}
                     </NavLink>
@@ -74,7 +74,6 @@ export default () => {
             <Box p={2} color="white" bg="primary" sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <span>
                 <h1>{idea.title}</h1>
-                <div>{idea.author}</div>
               </span>
               <div>{idea.participants}</div>
               <div>{idea.activity}</div>
@@ -117,12 +116,16 @@ export default () => {
                   alignItems: 'center'
                 }}
               >
-                <div>{idea.author}</div>
                 <div>{idea.activity}</div>
                 <div>{idea.participants}</div>
                 <div>{idea.description}</div>
               </Flex>
             </Box>
+            <StarRatingComponent
+              name={'edit-duration'}
+              value={idea.duration}
+              editing={false}
+            />
             {idea.duration}
             <Form currentItem={idea} refetch={refetch} />
           </Flex>

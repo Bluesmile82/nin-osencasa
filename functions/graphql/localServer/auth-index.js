@@ -10,7 +10,6 @@ const typeDefs = gql`
   type Idea {
     id: ID!
     title: String!
-    author: String
     key: String
     style: String
     lyrics: String
@@ -19,7 +18,6 @@ const typeDefs = gql`
   type Mutation {
     addIdea(
       title: String!,
-      author: String,
       key: String,
       style: String,
       lyrics: String,
@@ -28,7 +26,6 @@ const typeDefs = gql`
     updateIdea(
       id: ID!,
       title: String!,
-      author: String,
       key: String,
       style: String,
       lyrics: String,
@@ -58,7 +55,7 @@ const resolvers = {
   Mutation: {
     addIdea: async (
       _,
-      { title, author, key, style, lyrics, youtubeId },
+      { title, key, style, lyrics, youtubeId },
       { user }
     ) => {
       if (!user) {
@@ -68,7 +65,6 @@ const resolvers = {
         q.Create(q.Collection('ideas'), {
           data: {
             title,
-            author,
             key,
             style,
             lyrics,
@@ -84,7 +80,7 @@ const resolvers = {
     },
     updateIdea: async (
       _,
-      { id, title, author, key, style, lyrics, youtubeId },
+      { id, title, key, style, lyrics, youtubeId },
       { user }
     ) => {
       if (!user) {
@@ -94,7 +90,6 @@ const resolvers = {
         q.Update(q.Ref(q.Collection('ideas'), id), {
           data: {
             title,
-            author,
             key,
             style,
             lyrics,

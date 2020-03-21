@@ -41,28 +41,39 @@ export default () => {
               .filter(idea =>
                 search
                   ? idea.title.toLowerCase().includes(search.toLowerCase()) ||
-                    (idea.description && idea.description
-                      .toLowerCase()
-                      .includes(search.toLowerCase()))
+                    (idea.description &&
+                      idea.description
+                        .toLowerCase()
+                        .includes(search.toLowerCase()))
                   : true
               )
-              .map(idea => idea.reviewed && (
-                <Box p={3} key={idea.title}>
-                  <h3>{idea.title}</h3>
-                  <div>{idea.description}</div>
-                  {idea.duration && (
-                    <div>
-                      Duración:
-                      <StarRatingComponent
-                        className="stars"
-                        name={'index-duration'}
-                        value={idea.duration}
-                        editing={false}
-                      />
-                    </div>
-                  )}
-                </Box>
-              ))}
+              .map(
+                idea =>
+                  idea.reviewed && (
+                    <Box p={3} key={idea.title}>
+                      <h3>{idea.title}</h3>
+                      <div>{idea.description}</div>
+                      <div>
+                        {idea.participantsMin}{' '}
+                        {idea.participantsMax && idea.participantsMin !== idea.participantsMax
+                          ? `a ${idea.participantsMax} `
+                          : ' '}
+                        participantes
+                      </div>
+                      {idea.duration && (
+                        <div>
+                          Duración:
+                          <StarRatingComponent
+                            className="stars"
+                            name={'index-duration'}
+                            value={idea.duration}
+                            editing={false}
+                          />
+                        </div>
+                      )}
+                    </Box>
+                  )
+              )}
           </>
         )}
       </Flex>

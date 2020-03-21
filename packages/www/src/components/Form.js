@@ -79,7 +79,7 @@ const FormLabel = React.forwardRef(
               justifyContent: 'space-between'
             }}
           >
-            <span>{label}</span>
+            <span style={{ 'margin-right': '20px' }}>{label}</span>
             <InputRange
               ref={ref}
               maxValue={props.max}
@@ -106,6 +106,7 @@ const FormLabel = React.forwardRef(
           >
             <span>{label}</span>
             <MultiSelect
+              style={{ width: '100%' }}
               ref={ref}
               options={selectOptions.map(o => ({ value: o.id, label: o.name }))}
               defaultValues={defaultValue || undefined}

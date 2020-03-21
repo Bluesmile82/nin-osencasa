@@ -203,11 +203,11 @@ export default () => {
   }
 
   const Ideas = () => {
-    const password = localStorage.getItem('password');
+    const password = window.localStorage.getItem('password');
     const passwordRef = useRef(null);
     const onSubmit = e => {
       e.preventDefault();
-      localStorage.setItem('password', passwordRef.current.value);
+      window.localStorage.setItem('password', passwordRef.current.value);
     };
     if (password !== GATSBY_PASSWORD) {
       return (

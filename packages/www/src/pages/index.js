@@ -62,7 +62,7 @@ export default () => {
                           : ' '}
                         participantes
                       </div>
-                      <div> Para
+                      <div> Para{' '}
                         {idea.ageMin}{' '}
                         {idea.ageMax && idea.ageMin !== idea.ageMax
                           ? `a ${idea.ageMax} `

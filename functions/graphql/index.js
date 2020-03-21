@@ -10,7 +10,8 @@ const typeDefs = gql`
   type Idea {
     id: ID!
     title: String!
-    participants: String
+    participantsMin: Int
+    participantsMax: Int
     activity: String
     description: String
     duration: Int
@@ -19,7 +20,8 @@ const typeDefs = gql`
   type Mutation {
     addIdea(
       title: String!
-      participants: String
+      participantsMin: Int
+      participantsMax: Int
       activity: String
       description: String
       duration: Int
@@ -29,7 +31,8 @@ const typeDefs = gql`
     updateIdea(
       id: ID!
       title: String
-      participants: String
+      participantsMin: Int
+      participantsMax: Int
       activity: String
       description: String
       duration: Int
@@ -47,7 +50,8 @@ const resolvers = {
         const [
           ref,
           title,
-          participants,
+          participantsMin,
+          participantsMax,
           activity,
           description,
           duration,
@@ -56,7 +60,8 @@ const resolvers = {
         return {
           id: ref.id,
           title,
-          participants,
+          participantsMin,
+          participantsMax,
           activity,
           description,
           duration,
@@ -68,13 +73,21 @@ const resolvers = {
   Mutation: {
     addIdea: async (
       _,
-      { title, participants, activity, description, duration }
+      {
+        title,
+        participantsMin,
+        participantsMax,
+        activity,
+        description,
+        duration
+      }
     ) => {
       const results = await client.query(
         q.Create(q.Collection('ideas'), {
           data: {
             title,
-            participants,
+            participantsMin,
+            participantsMax,
             activity,
             description,
             duration,
@@ -97,13 +110,14 @@ const resolvers = {
     },
     updateIdea: async (
       _,
-      { id, title, participants, activity, description, duration }
+      { id, title, participantsMin, participantsMax, activity, description, duration }
     ) => {
       const results = await client.query(
         q.Update(q.Ref(q.Collection('ideas'), id), {
           data: {
             title,
-            participants,
+            participantsMin,
+            participantsMax,
             activity,
             description,
             duration
@@ -115,10 +129,7 @@ const resolvers = {
         id: results.ref.id
       };
     },
-    reviewIdea: async (
-      _,
-      { id }
-    ) => {
+    reviewIdea: async (_, { id }) => {
       const results = await client.query(
         q.Update(q.Ref(q.Collection('ideas'), id), {
           data: {
@@ -126,6 +137,7 @@ const resolvers = {
           }
         })
       );
+      console.log('re', results);
       return {
         ...results.data,
         id: results.ref.id

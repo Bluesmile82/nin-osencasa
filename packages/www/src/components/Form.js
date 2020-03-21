@@ -2,9 +2,11 @@ import React, { useRef, useState } from 'react';
 import { gql, useMutation } from '@apollo/client';
 
 import { MultiSelect } from 'react-selectize';
-import '../../../../node_modules/react-selectize/themes/index.css';
+import InputRange from 'react-input-range';
 import StarRatingComponent from 'react-star-rating-component';
 
+import '../../../../node_modules/react-input-range/lib/css/index.css';
+import '../../../../node_modules/react-selectize/themes/index.css';
 import {
   Button,
   Flex,
@@ -17,14 +19,16 @@ import {
 const ADD_IDEA = gql`
   mutation AddIdea(
     $title: String!
-    $participants: String
+    $participantsMin: Int
+    $participantsMax: Int
     $activity: String
     $description: String
     $duration: Int
   ) {
     addIdea(
       title: $title
-      participants: $participants
+      participantsMin: $participantsMin
+      participantsMax: $participantsMax
       activity: $activity
       description: $description
       duration: $duration
@@ -38,7 +42,8 @@ const UPDATE_IDEA = gql`
   mutation UpdateIdea(
     $id: ID!
     $title: String
-    $participants: String
+    $participantsMin: Int
+    $participantsMax: Int
     $activity: String
     $description: String
     $duration: Int
@@ -46,7 +51,8 @@ const UPDATE_IDEA = gql`
     updateIdea(
       id: $id
       title: $title
-      participants: $participants
+      participantsMin: $participantsMin
+      participantsMax: $participantsMax
       activity: $activity
       description: $description
       duration: $duration
@@ -57,8 +63,37 @@ const UPDATE_IDEA = gql`
 `;
 
 const FormLabel = React.forwardRef(
-  ({ defaultValue, label, type, textarea, selectOptions, multi }, ref) => {
+  ({ defaultValue, label, type, textarea, selectOptions, multi, ...props }, ref) => {
     const [starValue, setStarValue] = useState(defaultValue);
+    const [sliderValue, setSliderValue] = useState(
+      defaultValue || { min: props.min, max: props.max }
+    );
+
+    if (type === 'range') {
+      return (
+        <>
+          <Label
+            sx={{
+              display: 'flex',
+              marginBottom: 3,
+              justifyContent: 'space-between'
+            }}
+          >
+            <span>{label}</span>
+            <InputRange
+              ref={ref}
+              maxValue={props.max}
+              name={label}
+              minValue={props.min}
+              value={sliderValue || { min: props.min, max: props.max }}
+              onChange={e => setSliderValue(e)}
+              allowSameValues
+            />
+          </Label>
+        </>
+      );
+    }
+
     if (selectOptions) {
       if (multi) {
         return (
@@ -159,32 +194,25 @@ const Form = ({ currentItem, refetch, onSend }) => {
 
   const onSubmit = async (e, id) => {
     e.preventDefault();
+    const variables = {
+      title: titleRef.current.value,
+      participantsMin: participantsRef.current.props.value?.min || null,
+      participantsMax: participantsRef.current.props.value?.max || null,
+      activity: activityRef.current.value,
+      description: descriptionRef.current.value,
+      duration: durationRef.current.state.value || null
+    };
     if (id) {
-      await updateIdea({
-        variables: {
-          id,
-          title: titleRef.current.value,
-          participants: participantsRef.current.value || null,
-          activity: activityRef.current.value,
-          description: descriptionRef.current.value,
-          duration: durationRef.current.state.value || null
-        }
-      });
+      await updateIdea({ variables: { ...variables, id } });
     } else {
-      await addIdea({
-        variables: {
-          title: titleRef.current.value,
-          participants: participantsRef.current.value || null,
-          activity: activityRef.current.value,
-          description: descriptionRef.current.value,
-          duration: durationRef.current.state.value || null
-        }
-      });
+      await addIdea({ variables });
     }
     if (refetch) {
       await refetch();
     }
-    onSend();
+    if (onSend) {
+      onSend();
+    }
   };
   return (
     <Flex
@@ -207,9 +235,10 @@ const Form = ({ currentItem, refetch, onSend }) => {
         <FormLabel
           label="Participantes"
           ref={participantsRef}
-          selectOptions={['1', '1-2', '2', '2+', '2-4', '4+']}
-          defaultValue={currentItem ? currentItem.participants : undefined}
-          type="number"
+          min={1}
+          max={8}
+          defaultValue={(currentItem ? { min: currentItem.participantsMin, max: currentItem.participantsMax } : { min: 1, max: 8 })}
+          type="range"
         />
         <FormLabel
           label="Tipo de actividad"

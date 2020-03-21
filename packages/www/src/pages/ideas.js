@@ -15,11 +15,6 @@ const GET_IDEAS = gql`
   query GetIdeas {
     ideas {
       id
-      title
-      activity
-      description
-      participants
-      duration
     }
   }
 `;
@@ -40,8 +35,13 @@ export default () => {
           <Form onSend={() => setIsSent(true)} refetch={refetch} />
           {isSent && (
             <Box p={4}>
-              <span role="img">✔️</span> Tu idea se ha enviado. Tras una
-              revisión la añadiremos a las demás <span role="img">😊</span>
+              <span role="img" aria-label="ok">
+                ✔️
+              </span>{' '}
+              Tu idea se ha enviado. Tras una revisión la añadiremos a las demás{' '}
+              <span role="img" aria-label="smile">
+                😊
+              </span>
             </Box>
           )}
         </Flex>

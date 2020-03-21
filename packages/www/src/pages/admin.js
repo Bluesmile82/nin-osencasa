@@ -25,7 +25,8 @@ const GET_IDEAS = gql`
       title
       activity
       description
-      participants
+      participantsMin
+      participantsMax
       duration
       reviewed
     }
@@ -55,6 +56,7 @@ export default () => {
   const [deleteIdea] = useMutation(DELETE_IDEA);
 
   const ViewIdeas = () => {
+    console.log('d', data)
     const [search, setSearch] = useState('');
     return (
       <Flex sx={{ flexDirection: 'column' }}>
@@ -117,11 +119,22 @@ export default () => {
         {error && <div>{error.message}</div>}
         {!loading && !error && idea && (
           <Flex sx={{ flexDirection: 'column' }}>
-            <Box p={2} color="white" bg="primary" sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <Box
+              p={2}
+              color="white"
+              bg="primary"
+              sx={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center'
+              }}
+            >
               <span>
                 <h1>{idea.title}</h1>
               </span>
-              <div>{idea.participants}</div>
+              <div>
+                {idea.participantsMin} to {idea.participantsMax}
+              </div>
               <div>{idea.activity}</div>
             </Box>
             <Box p={4}>
@@ -163,7 +176,9 @@ export default () => {
                 }}
               >
                 <div>{idea.activity}</div>
-                <div>{idea.participants}</div>
+                <div>
+                  {idea.participantsMin} to {idea.participantsMax}
+                </div>
                 <div>{idea.description}</div>
               </Flex>
             </Box>

@@ -13,8 +13,10 @@ const GET_IDEAS = gql`
       title
       activity
       description
-      participants
+      participantsMin
+      participantsMax
       duration
+      reviewed
     }
   }
 `;
@@ -39,12 +41,12 @@ export default () => {
               .filter(idea =>
                 search
                   ? idea.title.toLowerCase().includes(search.toLowerCase()) ||
-                    idea.description && idea.description
+                    (idea.description && idea.description
                       .toLowerCase()
-                      .includes(search.toLowerCase())
+                      .includes(search.toLowerCase()))
                   : true
               )
-              .map(idea => (
+              .map(idea => idea.reviewed && (
                 <Box p={3} key={idea.title}>
                   <h3>{idea.title}</h3>
                   <div>{idea.description}</div>
@@ -75,8 +77,8 @@ export default () => {
       <Nav />
       <h1>Ideas y actividades para hacer con los niños en casa</h1>
       <div>
-        Estas actividades como juegos, manualidades, cocina te ayudarán para
-        pasar un gran tiempo con los niños o a que se entretengan
+        En estos tiempos a veces es dificil encontrar soluciones para que los niños se diviertan y se mantengan ocupados mientras los padres siguen sus labores diarias.
+        Aqui encontrarás actividades como juegos y manualidades que te ayudaran te ayudarán para pasar un gran tiempo con los niños o a las que puedan dedicarse ellos solos mientras tu trabajas.
       </div>
       <ViewIdeas />
     </Container>

@@ -3,3 +3,4 @@ public
 node_modules
 yarn-error.log
 .env
+packages/www/.env.development

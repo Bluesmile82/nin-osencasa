@@ -145,8 +145,7 @@ const FormLabel = React.forwardRef(
 );
 
 
-const Form = ({ currentItem, refetch }) => {
-
+const Form = ({ currentItem, refetch, onSend }) => {
   const { id } = currentItem || {};
 
   const titleRef = useRef(null);
@@ -182,7 +181,10 @@ const Form = ({ currentItem, refetch }) => {
         }
       });
     }
-    await refetch();
+    if (refetch) {
+      await refetch();
+    }
+    onSend();
   };
   return (
     <Flex
@@ -228,9 +230,9 @@ const Form = ({ currentItem, refetch }) => {
           type="rating"
         />
       </>
-      <Button sx={{ marginLeft: 1 }}>Submit</Button>
+      <Button sx={{ marginLeft: 1 }}>Enviar</Button>
     </Flex>
   );
-}
+};
 
 export default Form;

@@ -14,6 +14,7 @@ const typeDefs = gql`
     activity: String
     description: String
     duration: Int
+    reviewed: Boolean
   }
   type Mutation {
     addIdea(
@@ -22,6 +23,7 @@ const typeDefs = gql`
       activity: String
       description: String
       duration: Int
+      reviewed: Boolean
     ): Idea
     deleteIdea(id: ID!): Idea
     updateIdea(
@@ -32,6 +34,7 @@ const typeDefs = gql`
       description: String
       duration: Int
     ): Idea
+    reviewIdea(id: ID!): Idea
   }
 `;
 
@@ -47,7 +50,8 @@ const resolvers = {
           participants,
           activity,
           description,
-          duration
+          duration,
+          reviewed
         ] = d;
         return {
           id: ref.id,
@@ -55,7 +59,8 @@ const resolvers = {
           participants,
           activity,
           description,
-          duration
+          duration,
+          reviewed
         };
       });
     }
@@ -72,7 +77,8 @@ const resolvers = {
             participants,
             activity,
             description,
-            duration
+            duration,
+            reviewed: false
           }
         })
       );
@@ -101,6 +107,22 @@ const resolvers = {
             activity,
             description,
             duration
+          }
+        })
+      );
+      return {
+        ...results.data,
+        id: results.ref.id
+      };
+    },
+    reviewIdea: async (
+      _,
+      { id }
+    ) => {
+      const results = await client.query(
+        q.Update(q.Ref(q.Collection('ideas'), id), {
+          data: {
+            reviewed: true
           }
         })
       );

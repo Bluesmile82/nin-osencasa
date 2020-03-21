@@ -6,9 +6,10 @@ import {
   Flex,
   Input,
   NavLink,
+  Button,
   Box,
 } from 'theme-ui';
-import { gql, useQuery } from '@apollo/client';
+import { gql, useQuery, useMutation } from '@apollo/client';
 import Nav from '../components/Nav';
 import Seo from '../components/Seo';
 import Form from '../components/Form';
@@ -24,16 +25,36 @@ const GET_IDEAS = gql`
       description
       participants
       duration
+      reviewed
     }
   }
 `;
 
+  const REVIEW_IDEA = gql`
+    mutation ReviewIdea($id: ID!) {
+      reviewIdea(id: $id) {
+        id
+        reviewed
+      }
+    }
+  `;
+
+  const DELETE_IDEA = gql`
+    mutation DeleteIdea($id: ID!) {
+      deleteIdea(id: $id) {
+        id
+      }
+    }
+  `;
+
 export default () => {
   const { loading, error, data, refetch } = useQuery(GET_IDEAS);
+  const [reviewIdea] = useMutation(REVIEW_IDEA);
+  const [deleteIdea] = useMutation(DELETE_IDEA);
 
   const ViewIdeas = () => {
     const [search, setSearch] = useState('');
-    return(
+    return (
       <Flex sx={{ flexDirection: 'column' }}>
         {loading && <div>Loading...</div>}
         {error && <div>{error.message}</div>}
@@ -44,23 +65,46 @@ export default () => {
               onChange={term => setSearch(term.target.value)}
             />
             <ol>
-              {data.ideas && data.ideas
-                .filter(idea => (search ? idea.title.startsWith(search) : true))
-                .map(idea => (
-                  <li key={idea.id}>
-                    <NavLink as={Link} to={`/ideas/${idea.id}`} p={2}>
-                      {idea.title}
-                    </NavLink>
-                    <NavLink as={Link} to={`/ideas/edit/${idea.id}`} p={2}>
-                      Edit
-                    </NavLink>
-                  </li>
-                ))}
+              {data.ideas &&
+                data.ideas
+                  .filter(idea =>
+                    search ? idea.title.startsWith(search) : true
+                  )
+                  .map(idea => (
+                    <li key={idea.id}>
+                      <NavLink as={Link} to={`/ideas/${idea.id}`} p={2}>
+                        {idea.title}
+                      </NavLink>
+                      <NavLink as={Link} to={`/ideas/edit/${idea.id}`} p={2}>
+                        Edit
+                      </NavLink>
+                      {!idea.reviewed && (
+                        <Button
+                          onClick={async () => {
+                            await reviewIdea({ variables: { id: idea.id } });
+                            await refetch();
+                          }}
+                          p={2}
+                        >
+                          Review
+                        </Button>
+                      )}
+                      <Button
+                        onClick={async () => {
+                          await deleteIdea({ variables: { id: idea.id } });
+                          await refetch();
+                        }}
+                        p={2}
+                      >
+                        Delete
+                      </Button>
+                    </li>
+                  ))}
             </ol>
           </>
         )}
       </Flex>
-    )
+    );
   };
 
   const viewIdea = (id) => {

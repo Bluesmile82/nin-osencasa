@@ -31,11 +31,19 @@ export default () => {
         {!loading && !error && (
           <>
             <Input
+              sx={{ marginTop: '30px' }}
               placeholder="Busca ..."
               onChange={term => setSearch(term.target.value)}
             />
             {data.ideas
-              .filter(idea => (search ? idea.title.startsWith(search) : true))
+              .filter(idea =>
+                search
+                  ? idea.title.toLowerCase().includes(search.toLowerCase()) ||
+                    idea.description && idea.description
+                      .toLowerCase()
+                      .includes(search.toLowerCase())
+                  : true
+              )
               .map(idea => (
                 <Box p={3} key={idea.title}>
                   <h3>{idea.title}</h3>
@@ -59,7 +67,7 @@ export default () => {
     );
   };
   return (
-    <Container>
+    <Container p={3}>
       <Seo
         title="Inicio"
         description="Ideas y actividades para hacer con los niños en casa"

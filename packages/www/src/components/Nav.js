@@ -9,7 +9,7 @@ const Nav = () => {
         Niños en Casa
       </NavLink>
       <NavLink as={Link} to="/ideas" pr={3} pt={2}>
-        Ideas
+        Añade tu idea
       </NavLink>
     </Flex>
   );

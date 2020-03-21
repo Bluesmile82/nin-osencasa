@@ -218,7 +218,7 @@ export default () => {
       )
     }
     return (
-      <Container>
+      <Container p={3}>
         <Seo
           title="Crea tu idea"
           description="Añade a la lista de ideas y actividades para hacer con los niños en casa"

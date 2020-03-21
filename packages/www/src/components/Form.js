@@ -21,6 +21,8 @@ const ADD_IDEA = gql`
     $title: String!
     $participantsMin: Int
     $participantsMax: Int
+    $ageMin: Int
+    $ageMax: Int
     $activity: String
     $description: String
     $duration: Int
@@ -29,6 +31,8 @@ const ADD_IDEA = gql`
       title: $title
       participantsMin: $participantsMin
       participantsMax: $participantsMax
+      ageMin: $ageMin
+      ageMax: $ageMax
       activity: $activity
       description: $description
       duration: $duration
@@ -44,6 +48,8 @@ const UPDATE_IDEA = gql`
     $title: String
     $participantsMin: Int
     $participantsMax: Int
+    $ageMin: Int
+    $ageMax: Int
     $activity: String
     $description: String
     $duration: Int
@@ -53,6 +59,8 @@ const UPDATE_IDEA = gql`
       title: $title
       participantsMin: $participantsMin
       participantsMax: $participantsMax
+      ageMin: $ageMin
+      ageMax: $ageMax
       activity: $activity
       description: $description
       duration: $duration
@@ -186,6 +194,7 @@ const Form = ({ currentItem, refetch, onSend }) => {
 
   const titleRef = useRef(null);
   const participantsRef = useRef(null);
+  const ageRef = useRef(null);
   const activityRef = useRef(null);
   const descriptionRef = useRef(null);
   const durationRef = useRef(null);
@@ -199,6 +208,8 @@ const Form = ({ currentItem, refetch, onSend }) => {
       title: titleRef.current.value,
       participantsMin: participantsRef.current.props.value?.min || null,
       participantsMax: participantsRef.current.props.value?.max || null,
+      ageMin: ageRef.current.props.value?.min || null,
+      ageMax: ageRef.current.props.value?.max || null,
       activity: activityRef.current.value,
       description: descriptionRef.current.value,
       duration: durationRef.current.state.value || null
@@ -239,6 +250,14 @@ const Form = ({ currentItem, refetch, onSend }) => {
           min={1}
           max={8}
           defaultValue={(currentItem ? { min: currentItem.participantsMin, max: currentItem.participantsMax } : { min: 1, max: 8 })}
+          type="range"
+        />
+        <FormLabel
+          label="Edad"
+          ref={ageRef}
+          min={1}
+          max={16}
+          defaultValue={(currentItem ? { min: currentItem.ageMin, max: currentItem.ageMax } : { min: 1, max: 16 })}
           type="range"
         />
         <FormLabel

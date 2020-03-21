@@ -12,6 +12,8 @@ const typeDefs = gql`
     title: String!
     participantsMin: Int
     participantsMax: Int
+    ageMin: Int
+    ageMax: Int
     activity: String
     description: String
     duration: Int
@@ -22,6 +24,8 @@ const typeDefs = gql`
       title: String!
       participantsMin: Int
       participantsMax: Int
+      ageMin: Int
+      ageMax: Int
       activity: String
       description: String
       duration: Int
@@ -33,6 +37,8 @@ const typeDefs = gql`
       title: String
       participantsMin: Int
       participantsMax: Int
+      ageMin: Int
+      ageMax: Int
       activity: String
       description: String
       duration: Int
@@ -52,6 +58,8 @@ const resolvers = {
           title,
           participantsMin,
           participantsMax,
+          ageMin,
+          ageMax,
           activity,
           description,
           duration,
@@ -62,6 +70,8 @@ const resolvers = {
           title,
           participantsMin,
           participantsMax,
+          ageMin,
+          ageMax,
           activity,
           description,
           duration,
@@ -77,6 +87,8 @@ const resolvers = {
         title,
         participantsMin,
         participantsMax,
+        ageMin,
+        ageMax,
         activity,
         description,
         duration
@@ -88,6 +100,8 @@ const resolvers = {
             title,
             participantsMin,
             participantsMax,
+            ageMin,
+            ageMax,
             activity,
             description,
             duration,
@@ -110,7 +124,17 @@ const resolvers = {
     },
     updateIdea: async (
       _,
-      { id, title, participantsMin, participantsMax, activity, description, duration }
+      {
+        id,
+        title,
+        participantsMin,
+        participantsMax,
+        ageMin,
+        ageMax,
+        activity,
+        description,
+        duration
+      }
     ) => {
       const results = await client.query(
         q.Update(q.Ref(q.Collection('ideas'), id), {
@@ -118,6 +142,8 @@ const resolvers = {
             title,
             participantsMin,
             participantsMax,
+            ageMin,
+            ageMax,
             activity,
             description,
             duration

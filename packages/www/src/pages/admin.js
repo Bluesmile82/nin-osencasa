@@ -27,6 +27,8 @@ const GET_IDEAS = gql`
       description
       participantsMin
       participantsMax
+      ageMin
+      ageMax
       duration
       reviewed
     }
@@ -134,6 +136,9 @@ export default () => {
               </span>
               <div>
                 {idea.participantsMin} to {idea.participantsMax}
+              </div>
+              <div>
+                {idea.ageMin} to {idea.ageMax}
               </div>
               <div>{idea.activity}</div>
             </Box>

@@ -15,6 +15,8 @@ const GET_IDEAS = gql`
       description
       participantsMin
       participantsMax
+      ageMin
+      ageMax
       duration
       reviewed
     }
@@ -59,6 +61,13 @@ export default () => {
                           ? `a ${idea.participantsMax} `
                           : ' '}
                         participantes
+                      </div>
+                      <div> Para
+                        {idea.ageMin}{' '}
+                        {idea.ageMax && idea.ageMin !== idea.ageMax
+                          ? `a ${idea.ageMax} `
+                          : ' '}
+                        años
                       </div>
                       {idea.duration && (
                         <div>

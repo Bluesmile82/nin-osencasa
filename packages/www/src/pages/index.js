@@ -25,6 +25,13 @@ const GET_IDEAS = gql`
 
 export default () => {
   const { loading, error, data } = useQuery(GET_IDEAS);
+  const parseLinks = (text) => {
+    return text
+      .replace(
+        /(http.*)\s?/g,
+        t => `<a href="${t}" target="_blank">${t}</a></br>`
+      )
+  };
 
   const ViewIdeas = () => {
     const [search, setSearch] = useState('');
@@ -54,16 +61,21 @@ export default () => {
                   idea.reviewed && (
                     <Box p={3} key={idea.title}>
                       <h3>{idea.title}</h3>
-                      <div>{idea.description}</div>
+                      <div dangerouslySetInnerHTML={{
+                          __html: parseLinks(idea.description)
+                        }}
+                      />
                       <div>
                         {idea.participantsMin}{' '}
-                        {idea.participantsMax && idea.participantsMin !== idea.participantsMax
+                        {idea.participantsMax &&
+                        idea.participantsMin !== idea.participantsMax
                           ? `a ${idea.participantsMax} `
                           : ' '}
                         participantes
                       </div>
-                      <div> Para{' '}
-                        {idea.ageMin}{' '}
+                      <div>
+                        {' '}
+                        Para {idea.ageMin}{' '}
                         {idea.ageMax && idea.ageMin !== idea.ageMax
                           ? `a ${idea.ageMax} `
                           : ' '}

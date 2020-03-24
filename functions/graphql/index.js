@@ -50,7 +50,9 @@ const typeDefs = gql`
 const resolvers = {
   Query: {
     ideas: async () => {
-      const results = await client.query(q.Paginate(q.Match(q.Index('ideas'))));
+      const results = await client.query(
+        q.Paginate(q.Match(q.Index('ideas')), { size: 30000 })
+      );
       if (!results) return [];
       return results.data.map(d => {
         const [

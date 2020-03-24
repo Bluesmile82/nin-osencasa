@@ -14,7 +14,6 @@ const {
   HttpLink,
   InMemoryCache
 } = require('@apollo/client');
-console.log('s',process.env,  GATSBY_API)
 const httpLink = new HttpLink({
   uri: `${GATSBY_API || 'https://www.xn--niosencasa-u9a.com/.netlify/functions/index'}`,
   fetch

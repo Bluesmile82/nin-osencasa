@@ -51,7 +51,7 @@ export default () => {
             : true
         )
         .filter(
-          idea => (console.log(ageValue, idea, ageValue.min >= idea.ageMin || ageValue.max <= idea.ageMax) || ageValue.min <= idea.ageMax && ageValue.max >= idea.ageMin)
+          idea => (ageValue.max <= idea.ageMax) || ageValue.min <= idea.ageMax && ageValue.max >= idea.ageMin)
         );
     return (
       <Flex sx={{ flexDirection: 'column' }}>

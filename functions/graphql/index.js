@@ -165,7 +165,6 @@ const resolvers = {
           }
         })
       );
-      console.log('re', results);
       return {
         ...results.data,
         id: results.ref.id

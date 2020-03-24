@@ -58,7 +58,6 @@ export default () => {
   const [deleteIdea] = useMutation(DELETE_IDEA);
 
   const ViewIdeas = () => {
-    console.log('d', data)
     const [search, setSearch] = useState('');
     return (
       <Flex sx={{ flexDirection: 'column' }}>

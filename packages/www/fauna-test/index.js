@@ -17,9 +17,7 @@ async function run() {
     const results = await client.query(
       q.Paginate(q.Match(q.Index("ideas_by_user"), "other"))
     )
-    console.log(results);
   } catch (error) {
-
     console.log(error);
   }
 };

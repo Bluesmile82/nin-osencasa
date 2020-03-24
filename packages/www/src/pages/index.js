@@ -38,7 +38,7 @@ export default () => {
 
   const ViewIdeas = () => {
     const [search, setSearch] = useState('');
-    const [ageValue, setAgeValue] = useState({ min: 1, max: 8 });
+    const [ageValue, setAgeValue] = useState({ min: 1, max: 16 });
     const filteredIdeas =
       !loading &&
       !error &&

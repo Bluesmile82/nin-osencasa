@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Container, Flex, Input, Box } from 'theme-ui';
+import { Container, Flex, Input, Box, Label } from 'theme-ui';
 import { gql, useQuery } from '@apollo/client';
+import InputRange from 'react-input-range';
 import Nav from '../components/Nav';
 import Seo from '../components/Seo';
 import '../../styles/index.scss';
@@ -37,6 +38,21 @@ export default () => {
 
   const ViewIdeas = () => {
     const [search, setSearch] = useState('');
+    const [ageValue, setAgeValue] = useState({ min: 1, max: 8 });
+    const filteredIdeas =
+      !loading &&
+      !error &&
+      data.ideas
+        .filter(idea =>
+          search
+            ? idea.title.toLowerCase().includes(search.toLowerCase()) ||
+              (idea.description &&
+                idea.description.toLowerCase().includes(search.toLowerCase()))
+            : true
+        )
+        .filter(
+          idea => (console.log(ageValue, idea, ageValue.min >= idea.ageMin || ageValue.max <= idea.ageMax) || ageValue.min <= idea.ageMax && ageValue.max >= idea.ageMin)
+        );
     return (
       <Flex sx={{ flexDirection: 'column' }}>
         {loading && <div>Loading...</div>}
@@ -44,59 +60,73 @@ export default () => {
         {!loading && !error && (
           <>
             <Input
-              sx={{ marginTop: '30px' }}
+              sx={{ margin: '30px 0' }}
               placeholder="Busca ..."
               onChange={term => setSearch(term.target.value)}
             />
-            {data.ideas
-              .filter(idea =>
-                search
-                  ? idea.title.toLowerCase().includes(search.toLowerCase()) ||
-                    (idea.description &&
-                      idea.description
-                        .toLowerCase()
-                        .includes(search.toLowerCase()))
-                  : true
-              )
-              .map(
+            <Label
+              sx={{
+                display: 'flex',
+                marginBottom: 3,
+                paddingRight: 2,
+                justifyContent: 'space-between'
+              }}
+            >
+              <span style={{ 'margin-right': '20px' }}>Edad</span>
+              <InputRange
+                maxValue={16}
+                minValue={1}
+                name={'age-filter'}
+                value={ageValue}
+                onChange={e => setAgeValue(e)}
+                allowSameValues
+              />
+            </Label>
+            <div>{filteredIdeas.length} ideas</div>
+            <ol>
+              {filteredIdeas.map(
                 idea =>
                   idea.reviewed && (
-                    <Box p={3} key={idea.title}>
-                      <h3>{idea.title}</h3>
-                      <div dangerouslySetInnerHTML={{
-                          __html: parseLinks(idea.description)
-                        }}
-                      />
-                      <div>
-                        {idea.participantsMin}{' '}
-                        {idea.participantsMax &&
-                        idea.participantsMin !== idea.participantsMax
-                          ? `a ${idea.participantsMax} `
-                          : ' '}
-                        participantes
-                      </div>
-                      <div>
-                        {' '}
-                        Para {idea.ageMin}{' '}
-                        {idea.ageMax && idea.ageMin !== idea.ageMax
-                          ? `a ${idea.ageMax} `
-                          : ' '}
-                        años
-                      </div>
-                      {idea.duration && (
+                    <li>
+                      <Box p={3} key={idea.title}>
+                        <h3>{idea.title}</h3>
+                        <div
+                          dangerouslySetInnerHTML={{
+                            __html: parseLinks(idea.description)
+                          }}
+                        />
                         <div>
-                          Duración:
-                          <StarRatingComponent
-                            className="stars"
-                            name={'index-duration'}
-                            value={idea.duration}
-                            editing={false}
-                          />
+                          {idea.participantsMin}{' '}
+                          {idea.participantsMax &&
+                          idea.participantsMin !== idea.participantsMax
+                            ? `a ${idea.participantsMax} `
+                            : ' '}
+                          participantes
                         </div>
-                      )}
-                    </Box>
+                        <div>
+                          {' '}
+                          Para {idea.ageMin}{' '}
+                          {idea.ageMax && idea.ageMin !== idea.ageMax
+                            ? `a ${idea.ageMax} `
+                            : ' '}
+                          años
+                        </div>
+                        {idea.duration && (
+                          <div>
+                            Duración:
+                            <StarRatingComponent
+                              className="stars"
+                              name={'index-duration'}
+                              value={idea.duration}
+                              editing={false}
+                            />
+                          </div>
+                        )}
+                      </Box>
+                    </li>
                   )
               )}
+            </ol>
           </>
         )}
       </Flex>
@@ -116,9 +146,9 @@ export default () => {
         <img src={crownImg} title="crown" className="image-crown right"/>
       </div>
       <div>
-        Ideas y soluciones para pasar la cuarentena. Para que los
-        niños se diviertan y disfrutar en familia o actividades para entretenerlos mientras los padres siguen sus labores diarias. Aqui encontrarás actividades como juegos y
-        manualidades que te ayudaran a pasar un gran tiempo con los niños.
+        Ideas para pasar la cuarentena y  que los
+        niños se diviertan. Para disfrutar en familia o actividades para entretenerlos mientras los padres siguen sus labores diarias. Aqui encontrarás actividades como juegos y
+        manualidades que te ayudaran a pasar un gran tiempo.
       </div>
       <ViewIdeas />
     </Container>

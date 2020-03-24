@@ -1,7 +1,33 @@
 @import './settings.scss';
 
+html {
+  background-color: ghostwhite;
+}
+
 * {
   font-family: $font-family-2;
+}
+
+.title {
+  font-family: $font-family-1;
+  font-weight: 100;
+  font-size: 40px;
+  letter-spacing: 3px;
+}
+
+.house-container {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  margin-bottom: 50px;
+
+  .left {
+    rotate: -90deg;
+  }
+
+  .right {
+    rotate: 90deg;
+  }
 }
 
 .stars {

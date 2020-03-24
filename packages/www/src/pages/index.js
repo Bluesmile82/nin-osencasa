@@ -5,6 +5,8 @@ import Nav from '../components/Nav';
 import Seo from '../components/Seo';
 import '../../styles/index.scss';
 import StarRatingComponent from 'react-star-rating-component';
+import casaImg from '../images/casas.png';
+import crownImg from '../images/cor.png';
 
 const GET_IDEAS = gql`
   query GetIdeas {
@@ -107,10 +109,16 @@ export default () => {
         description="Ideas y actividades para hacer con los niños en casa"
       />
       <Nav />
-      <h1>Ideas y actividades para hacer con los niños en casa</h1>
+      <h1 className="title">Ideas y actividades para hacer con los niños en casa</h1>
+      <div className="house-container">
+        <img src={crownImg} title="crown" className="image-crown left"/>
+        <img src={casaImg} title="casa" />
+        <img src={crownImg} title="crown" className="image-crown right"/>
+      </div>
       <div>
-        En estos tiempos a veces es dificil encontrar soluciones para que los niños se diviertan y se mantengan ocupados mientras los padres siguen sus labores diarias.
-        Aqui encontrarás actividades como juegos y manualidades que te ayudaran te ayudarán para pasar un gran tiempo con los niños o a las que puedan dedicarse ellos solos mientras tu trabajas.
+        Ideas y soluciones para pasar la cuarentena. Para que los
+        niños se diviertan y disfrutar en familia o actividades para entretenerlos mientras los padres siguen sus labores diarias. Aqui encontrarás actividades como juegos y
+        manualidades que te ayudaran a pasar un gran tiempo con los niños.
       </div>
       <ViewIdeas />
     </Container>

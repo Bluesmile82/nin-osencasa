@@ -9,7 +9,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-google-fonts`,
       options: {
-        fonts: [`Indie+Flower`, `Bellota+Text\:300,400,400i,700`],
+        fonts: [`Lobster`, `Bellota+Text\:300,400,400i,700`],
         display: 'swap'
       }
     },

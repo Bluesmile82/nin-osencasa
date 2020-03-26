@@ -23,15 +23,23 @@ function SEO({ description, lang, meta, title }) {
         },
         {
           property: `og:title`,
-          content: title
+          content: 'Niños en casa - ' + title
         },
         {
           property: `og:description`,
-          content: description
+          content: 'Niños en casa - ' + description
         },
         {
           property: `og:type`,
           content: `website`
+        },
+        {
+          property: `og:url`,
+          content: `http://www.niñosencasa.com`
+        },
+        {
+          property: `og:image`,
+          content: `http://www.niñosencasa.com/shareimage.png`
         },
         {
           name: `twitter:card`,
@@ -43,7 +51,7 @@ function SEO({ description, lang, meta, title }) {
         },
         {
           name: `twitter:title`,
-          content: title
+          content: 'Niños en casa - ' + title
         },
         {
           name: `twitter:description`,

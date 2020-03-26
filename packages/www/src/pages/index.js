@@ -39,20 +39,18 @@ export default () => {
   const ViewIdeas = () => {
     const [search, setSearch] = useState('');
     const [ageValue, setAgeValue] = useState({ min: 1, max: 16 });
-    const filteredIdeas =
-      !loading &&
-      !error &&
-      data.ideas
-        .filter(idea =>
-          search
-            ? idea.title.toLowerCase().includes(search.toLowerCase()) ||
-              (idea.description &&
-                idea.description.toLowerCase().includes(search.toLowerCase()))
-            : true
-        )
-        .filter(
-          idea => (ageValue.max <= idea.ageMax) || ageValue.min <= idea.ageMax && ageValue.max >= idea.ageMin)
-        );
+    const filteredIdeas = (!loading && !error) && data.ideas
+      .filter(idea =>
+        search
+          ? idea.title.toLowerCase().includes(search.toLowerCase()) ||
+            (idea.description &&
+              idea.description.toLowerCase().includes(search.toLowerCase()))
+          : true
+      )
+      .filter(
+        idea => (ageValue.max <= idea.ageMax) || ageValue.min <= idea.ageMax && ageValue.max >= idea.ageMin
+      );
+
     return (
       <Flex sx={{ flexDirection: 'column' }}>
         {loading && <div>Loading...</div>}

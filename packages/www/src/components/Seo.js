@@ -35,15 +35,23 @@ function SEO({ description, lang, meta, title }) {
         },
         {
           property: `og:url`,
-          content: `http://www.niñosencasa.com`
+          content: `https://www.niñosencasa.com`
         },
         {
           property: `og:image`,
-          content: `http://www.niñosencasa.com/shareimage.png`
+          content: `https://www.niñosencasa.com/shareimage.png`
         },
         {
           name: `twitter:card`,
           content: `summary`
+        },
+        {
+          property: `twitter:description`,
+          content: 'Niños en casa - ' + description
+        },
+        {
+          name: `twitter:url`,
+          content: `https://www.niñosencasa.com`
         },
         {
           name: `twitter:creator`,
@@ -52,6 +60,10 @@ function SEO({ description, lang, meta, title }) {
         {
           name: `twitter:title`,
           content: 'Niños en casa - ' + title
+        },
+        {
+          property: `twitter:image`,
+          content: `http://www.niñosencasa.com/shareimage.png`
         },
         {
           name: `twitter:description`,

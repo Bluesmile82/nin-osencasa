@@ -87,7 +87,7 @@ const FormLabel = React.forwardRef(
               justifyContent: 'space-between'
             }}
           >
-            <span style={{ 'margin-right': '20px' }}>{label}</span>
+            <span style={{ marginRight: '20px' }}>{label}</span>
             <InputRange
               ref={ref}
               maxValue={props.max}

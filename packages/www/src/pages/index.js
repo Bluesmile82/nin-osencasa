@@ -35,6 +35,7 @@ export default () => {
       />
       <Nav />
       <h1 className="title">
+        {!loading && !error && `${data.ideas.filter(i => i.reviewed).length} `}
         Ideas y actividades para hacer con los niños y niñas en casa
       </h1>
       <div className="house-container">
@@ -53,10 +54,10 @@ export default () => {
         />
       </div>
       <div>
-        Ideas para pasar la cuarentena y que los niños y niñas se diviertan. Para
-        disfrutar en familia o actividades para entretenerlos mientras los
-        padres y madres siguen sus labores diarias. Aqui encontrarás actividades como
-        juegos y manualidades que te ayudaran a pasar un gran tiempo.
+        Ideas para pasar la cuarentena y que los niños y niñas se diviertan.
+        Para disfrutar en familia o actividades para entretenerlos mientras los
+        padres y madres siguen sus labores diarias. Aqui encontrarás actividades
+        como juegos y manualidades que te ayudaran a pasar un gran tiempo.
       </div>
       <ViewIdeas loading={loading} error={error} data={data} />
     </Container>

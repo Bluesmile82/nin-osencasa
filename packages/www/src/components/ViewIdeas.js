@@ -13,6 +13,7 @@ const ViewIdeas = ({ data, loading, error }) => {
     min: 1,
     max: 8
   });
+
   const filteredIdeas =
     !loading &&
     !error &&
@@ -25,14 +26,12 @@ const ViewIdeas = ({ data, loading, error }) => {
           : true
       )
       .filter(
-        idea =>
-          ageValue.max <= idea.ageMax ||
-          (ageValue.min <= idea.ageMax && ageValue.max >= idea.ageMin)
+        idea => !(ageValue.max < idea.ageMin) && !(ageValue.min > idea.ageMax)
       )
       .filter(
         idea =>
-          participantsValue.max <= idea.participantsMax ||
-          (participantsValue.min <= idea.participantsMax && participantsValue.max >= idea.participantsMin)
+          !(participantsValue.max < idea.participantsMin) &&
+          !(participantsValue.min > idea.participantsMax)
       )
       .filter(idea => idea.reviewed);
 

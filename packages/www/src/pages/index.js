@@ -34,16 +34,29 @@ export default () => {
         description="Ideas y actividades para hacer con los niños en casa"
       />
       <Nav />
-      <h1 className="title">Ideas y actividades para hacer con los niños en casa</h1>
+      <h1 className="title">
+        Ideas y actividades para hacer con los niños y niñas en casa
+      </h1>
       <div className="house-container">
-        <img src={crownImg} title="crown" className="image-crown left"/>
-        <img src={casaImg} title="casa" />
-        <img src={crownImg} title="crown" className="image-crown right"/>
+        <img
+          src={crownImg}
+          alt="decoración"
+          title="crown"
+          className="image-crown left"
+        />
+        <img src={casaImg} alt="casa" title="casa" />
+        <img
+          src={crownImg}
+          alt="decoración"
+          title="crown"
+          className="image-crown right"
+        />
       </div>
       <div>
-        Ideas para pasar la cuarentena y  que los
-        niños se diviertan. Para disfrutar en familia o actividades para entretenerlos mientras los padres siguen sus labores diarias. Aqui encontrarás actividades como juegos y
-        manualidades que te ayudaran a pasar un gran tiempo.
+        Ideas para pasar la cuarentena y que los niños y niñas se diviertan. Para
+        disfrutar en familia o actividades para entretenerlos mientras los
+        padres y madres siguen sus labores diarias. Aqui encontrarás actividades como
+        juegos y manualidades que te ayudaran a pasar un gran tiempo.
       </div>
       <ViewIdeas loading={loading} error={error} data={data} />
     </Container>

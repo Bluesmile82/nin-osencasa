@@ -88,7 +88,7 @@ const ViewIdeas = ({ data, loading, error }) => {
             {filteredIdeas.map(
               idea =>
                 (
-                  <li>
+                  <li className="idea-list-item">
                     <ViewIdea key={idea.title} idea={idea}/>
                   </li>
                 )

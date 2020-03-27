@@ -38,8 +38,8 @@ const ViewIdeas = ({ data, loading, error }) => {
 
   return (
     <Flex sx={{ flexDirection: 'column' }}>
-      {loading && <div>Loading...</div>}
-      {error && <div>{error.message}</div>}
+      {loading && <div>Cargando...</div>}
+      {error && console.error(error) && <div>Error: Por favor recarga la página</div>}
       {!loading && !error && (
         <>
           <Input

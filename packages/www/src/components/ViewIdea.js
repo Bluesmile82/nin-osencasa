@@ -10,8 +10,8 @@ const parseLinks = text => {
   );
 };
 
-const ViewIdea = ({ idea }) => (
-  <Box p={3} key={idea.title}>
+const ViewIdea = ({ idea, className }) => (
+  <Box p={3} key={idea.title} className={className}>
     <h3>{idea.title}</h3>
     <div
       dangerouslySetInnerHTML={{

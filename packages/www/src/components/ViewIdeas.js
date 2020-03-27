@@ -39,7 +39,9 @@ const ViewIdeas = ({ data, loading, error }) => {
   return (
     <Flex sx={{ flexDirection: 'column' }}>
       {loading && <div>Cargando...</div>}
-      {error && console.error(error) && <div>Error: Por favor recarga la página</div>}
+      {error && console.error(error) && (
+        <div>Error: Por favor recarga la página</div>
+      )}
       {!loading && !error && (
         <>
           <Input
@@ -85,14 +87,15 @@ const ViewIdeas = ({ data, loading, error }) => {
           </Label>
           <div>{filteredIdeas.length} ideas</div>
           <ol>
-            {filteredIdeas.map(
-              idea =>
-                (
-                  <li className="idea-list-item">
-                    <ViewIdea key={idea.title} idea={idea}/>
-                  </li>
-                )
-            )}
+            {filteredIdeas.map(idea => (
+              <li>
+                <ViewIdea
+                  className="idea-list-item"
+                  key={idea.title}
+                  idea={idea}
+                />
+              </li>
+            ))}
           </ol>
         </>
       )}

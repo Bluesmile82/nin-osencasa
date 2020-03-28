@@ -1,9 +1,10 @@
 import React from 'react';
-import { Container } from 'theme-ui';
+import { Container, Box } from 'theme-ui';
 import { gql, useQuery } from '@apollo/client';
 import Nav from '../components/Nav';
 import Seo from '../components/Seo';
 import ViewIdeas from '../components/ViewIdeas';
+import SenderForm from '../components/SenderForm/SenderForm';
 import '../../styles/index.scss';
 import casaImg from '../images/casas.png';
 import crownImg from '../images/cor.png';
@@ -59,7 +60,14 @@ export default () => {
         padres y madres siguen sus labores diarias. Aqui encontrarás actividades
         como juegos y manualidades que te ayudaran a pasar un gran tiempo.
       </div>
+      <SenderForm />
       <ViewIdeas loading={loading} error={error} data={data} />
+      <Box sx={{ textAlign: 'left' }}>
+        Álvaro Leal 2020 -{' '}
+        <a target="_blank" href="http://www.alvaro-leal.com">
+          Contacto
+        </a>
+      </Box>
     </Container>
   );
 }

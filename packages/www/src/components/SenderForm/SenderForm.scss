@@ -1,0 +1,76 @@
+.sender-subscribe {
+  display: flex;
+}
+
+.checkbox_wrapper {
+  display: inline-block;
+  padding: 4px;
+  width: 100%;
+}
+
+.subscription-form .checkbox_label {
+  display: inline-block;
+  line-height: 18px;
+  margin-left: 4px;
+  font-size: 12px;
+  color: #29484f;
+}
+
+.subscription-form-fields {
+  margin-top: 15px;
+  flex: 3;
+}
+
+.subscription-form {
+  text-align: center;
+  border: 0px solid #a3a3a3;
+  border-radius: 0px;
+  padding: 20px;
+  margin: 0 auto;
+  background-color: #ffffff;
+}
+
+.subscription-form h4 {
+  color: #565656;
+  font-size: 26px;
+  margin-top: 0px;
+}
+
+.subscription-thank-you {
+  color: black;
+  font-size: 16px;
+}
+
+.subscription-form-content {
+  color: black;
+  font-size: 16px;
+  text-align: left;
+}
+
+.subscription-form button {
+  margin-top: 5px;
+  border-radius: 0px;
+  padding: 10px;
+  display: block;
+  text-align: center;
+  border: none;
+  width: 100%;
+  color: #ffffff;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.sender-sub-main {
+  display: table;
+  width: 100%;
+  height: 100%;
+}
+
+.sender-sub-inner {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.submit-button {
+  flex: 1;
+}

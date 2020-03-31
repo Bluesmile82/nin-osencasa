@@ -34,7 +34,7 @@ export default () => {
     const randomIdea =
       filteredIdeas[Math.floor(Math.random() * filteredIdeas.length)];
     return (
-      <Container p={3}>
+      <Container p={3} sx={{ height: '100vh' }}>
         <Seo
           title="Idea aleatoria"
           description="Una idea aleatoria para hacer con los niños en casa"

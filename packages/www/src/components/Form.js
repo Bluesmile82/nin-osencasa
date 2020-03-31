@@ -161,6 +161,7 @@ const FormLabel = React.forwardRef(
             ref={ref}
             value={starValue || defaultValue}
             editing
+            renderStarIcon={() => <span>⧗</span>}
             onStarClick={e => setStarValue(e)}
           />
         </Label>

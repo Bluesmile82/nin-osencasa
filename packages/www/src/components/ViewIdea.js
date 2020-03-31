@@ -38,6 +38,7 @@ const ViewIdea = ({ idea, className }) => (
           className="stars"
           name={'index-duration'}
           value={idea.duration}
+          renderStarIcon={() => <span>⧗</span>}
           editing={false}
         />
       </div>

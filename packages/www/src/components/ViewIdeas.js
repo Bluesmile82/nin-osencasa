@@ -13,7 +13,6 @@ const ViewIdeas = ({ data, loading, error }) => {
     min: 1,
     max: 8
   });
-
   const filteredIdeas =
     !loading &&
     !error &&

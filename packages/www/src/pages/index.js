@@ -36,7 +36,7 @@ export default () => {
       />
       <Nav />
       <h1 className="title">
-        {!loading && !error && `${data.ideas.filter(i => i.reviewed).length} `}
+        {!loading && !error && `${data.ideas.filter(i => i.reviewed).length - 1} `}
         Ideas y actividades para hacer con los niños y niñas en casa
       </h1>
       <div className="house-container">

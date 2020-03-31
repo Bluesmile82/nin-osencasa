@@ -190,6 +190,7 @@ export default () => {
               name={'edit-duration'}
               value={idea.duration}
               editing={false}
+              renderStarIcon={() => <span>⧗</span>}
             />
             {idea.duration}
             <Form currentItem={idea} refetch={refetch} />

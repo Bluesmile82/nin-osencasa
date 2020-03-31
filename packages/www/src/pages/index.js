@@ -8,7 +8,20 @@ import SenderForm from '../components/SenderForm/SenderForm';
 import '../../styles/index.scss';
 import casaImg from '../images/casas.png';
 import crownImg from '../images/cor.png';
-
+import {
+  FacebookShareButton,
+  TwitterShareButton,
+  PinterestShareButton,
+  TelegramShareButton,
+  WhatsappShareButton
+} from 'react-share';
+import {
+  FacebookIcon,
+  PinterestIcon,
+  TelegramIcon,
+  TwitterIcon,
+  WhatsappIcon,
+} from 'react-share';
 const GET_IDEAS = gql`
   query GetIdeas {
     ideas {
@@ -28,6 +41,9 @@ const GET_IDEAS = gql`
 
 export default () => {
   const { loading, error, data } = useQuery(GET_IDEAS);
+  const ideasNumber = !loading && !error && (data.ideas.filter(i => i.reviewed).length - 1) || '';
+  const title = `${ideasNumber} Ideas y actividades para hacer con los niños y niñas en
+        casa ¡Añade la tuya!`;
   return (
     <Container p={3}>
       <Seo
@@ -35,10 +51,7 @@ export default () => {
         description="Ideas y actividades para hacer con los niños en casa"
       />
       <Nav />
-      <h1 className="title">
-        {!loading && !error && `${data.ideas.filter(i => i.reviewed).length - 1} `}
-        Ideas y actividades para hacer con los niños y niñas en casa
-      </h1>
+      <h1 className="title">{title}</h1>
       <div className="house-container">
         <img
           src={crownImg}
@@ -59,6 +72,47 @@ export default () => {
         Para disfrutar en familia o actividades para entretenerlos mientras los
         padres y madres siguen sus labores diarias. Aqui encontrarás actividades
         como juegos y manualidades que te ayudaran a pasar un gran tiempo.
+      </div>
+      <div>
+        ¿Te parece una buena idea? ¡Compártelo en tus redes!
+        <FacebookShareButton
+          className="sharing-button"
+          url={'http://www.niñosencasa.com'}
+          quote={title}
+          hashtags={['niñosencasa']}
+        >
+          <FacebookIcon size={32} round={true} />
+        </FacebookShareButton>
+        <TwitterShareButton
+          className="sharing-button"
+          url={'http://www.niñosencasa.com'}
+          title={title}
+          hashtags={['niñosencasa']}
+        >
+          <TwitterIcon size={32} round={true} />
+        </TwitterShareButton>
+        <WhatsappShareButton
+          className="sharing-button"
+          url={'http://www.niñosencasa.com'}
+          title={title}
+        >
+          <WhatsappIcon size={32} round={true} />
+        </WhatsappShareButton>
+        <TelegramShareButton
+          className="sharing-button"
+          url={'http://www.niñosencasa.com'}
+          title={title}
+        >
+          <TelegramIcon size={32} round={true} />
+        </TelegramShareButton>
+        <PinterestShareButton
+          className="sharing-button"
+          url={'http://www.niñosencasa.com'}
+          media={'http://www.niñosencasa.com/shareimage.png'}
+          description={title}
+        >
+          <PinterestIcon size={32} round={true} />
+        </PinterestShareButton>
       </div>
       <SenderForm />
       <ViewIdeas loading={loading} error={error} data={data} />
